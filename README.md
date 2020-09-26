@@ -1,6 +1,6 @@
 ## My project
 
-For my project, I will analyze the `mtcars` data, like always. 
+For my project, I will analyze Women's Tennis Association (WTA) data. 
 
 To analyze the data you will need to install some `R` packages. The required packages can be installed using `R` commands.
 
