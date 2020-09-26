@@ -1,0 +1,63 @@
+---
+title: "Women's Tennis Association - An analysis of Naomi Osaka's Rise to No. 1 in 2019"
+author: "Kathleen Keh"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+# Introduction
+
+After winning the Australian Open in 2019, Naomi Osaka became the first Asian player to be ranked No. 1 in the world in singles. 
+
+
+# Descriptive Statistics
+
+```{r, echo = FALSE, message = FALSE}
+# Loading packages
+library(dplyr)
+
+# Read in data and append match data
+wta_matches_2018 <- read.csv("./data/wta_matches_2018.csv", header=TRUE)
+wta_matches_2019 <- read.csv("./data/wta_matches_2019.csv", header=TRUE)
+wta <- rbind(wta_matches_2018, wta_matches_2019)
+wta$tourney_date <- as.Date(as.character(wta$tourney_date), format="%Y%m%d")
+
+# Read in rank data and rename columns
+wta_rank <- read.csv("./data/wta_rankings_10s.csv", header=FALSE)
+wta_rank <- rename(wta_rank, ranking_date = V1, ranking = V2, player_id = V3, 
+                   ranking_points = V4, tours = V5)
+wta_rank$ranking_date <- as.Date(as.character(wta_rank$ranking_date), format="%Y%m%d")
+
+# Subset Naomi Osaka in 2018 and 2019
+osaka <- subset(wta, winner_id==211768 | loser_id==211768)
+osaka_rank <- subset(wta_rank, player_id==211768)
+osaka_rank <- osaka_rank %>% filter(ranking_date>= as.Date("2018-01-01"))
+```
+
+Naomi Osaka became the world No. 1 on `r format(as.Date(min(osaka_rank$ranking_date[osaka_rank$ranking==1])), "%B %d, %Y")`. Her rise in rank through time from 2018 to 2019 is shown in the figure below. Her ranking rises quickly from outside the top 50 in the beginning of 2018 until she reaches No. 1. She maintained a high ranking and did not drop below rank `r max(osaka_rank$ranking[osaka_rank$ranking_date>=as.Date("2019-01-01")])` throughout 2019. 
+
+
+```{r, echo = FALSE, message = FALSE}
+# Generate plot
+plot(osaka_rank$ranking~osaka_rank$ranking_date, ylim = rev(range(osaka_rank$ranking)), 
+     lwd=4 , type="l", xlab = "Year", ylab = "Ranking", main = "Naomi Osaka's WTA Ranking
+     in 2018 and 2019")
+```
+
+
+
+# Appendix
+
+The following listing presents information on each match played by Naomi Osaka in 2018 and 2019. 
+
+```{r, echo = FALSE, message = FALSE}
+# Appendix
+osaka.matches <- osaka %>% select(tourney_name, tourney_date, score, winner_name, loser_name) %>% arrange(tourney_date)
+osaka.matches$tourney_name <- ifelse(osaka.matches$tourney_name==osaka.matches$tourney_name[23], "Fed Cup", 
+                                     osaka.matches$tourney_name)
+osaka.matches$tourney_date <- format(as.Date(osaka.matches$tourney_date), "%b %Y")
+colnames(osaka.matches) <- c("Tournament", "Date", "Match Score", "Winner", "Loser")
+knitr::kable(osaka.matches, caption = "Matches played by Naomi Osaka in 2018 and 2019", 
+             row.names = FALSE)
+```
+
