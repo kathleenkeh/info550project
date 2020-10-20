@@ -17,13 +17,13 @@ After winning the Australian Open in 2019, Naomi Osaka became the first Asian pl
 library(dplyr)
 
 # Read in data and append match data
-wta_matches_2018 <- read.csv("./data/wta_matches_2018.csv", header=TRUE)
-wta_matches_2019 <- read.csv("./data/wta_matches_2019.csv", header=TRUE)
+wta_matches_2018 <- read.csv("./wta_matches_2018.csv", header=TRUE)
+wta_matches_2019 <- read.csv("./wta_matches_2019.csv", header=TRUE)
 wta <- rbind(wta_matches_2018, wta_matches_2019)
 wta$tourney_date <- as.Date(as.character(wta$tourney_date), format="%Y%m%d")
 
 # Read in rank data and rename columns
-wta_rank <- read.csv("./data/wta_rankings_10s.csv", header=FALSE)
+wta_rank <- read.csv("./wta_rankings_10s.csv", header=FALSE)
 wta_rank <- rename(wta_rank, ranking_date = V1, ranking = V2, player_id = V3, 
                    ranking_points = V4, tours = V5)
 wta_rank$ranking_date <- as.Date(as.character(wta_rank$ranking_date), format="%Y%m%d")
