@@ -4,7 +4,6 @@ title: Women's Tennis Association - An analysis of Naomi Osaka's Rise to No. 1 i
 author: "Kathleen Keh"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
-  pdf_document: default
   html_document: default
 ---
 
