@@ -19,3 +19,20 @@ make report.html
 ```
 
 This will create a file called `report.html` output in your directory that contains the results.
+
+
+
+
+## Use Docker to execute the analysis
+
+To pull the image from my DockerHub repository, you can run
+
+```bash
+docker pull kathleenkeh/info550project
+```
+
+Finally, to retrieve the final report from the image, you can replace /insert/your/local/path/here with your local path and then run
+
+```bash
+docker run -v /insert/your/local/path/here:/project/R kathleenkeh/info550project
+```
