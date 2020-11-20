@@ -16,7 +16,7 @@ After winning the Australian Open in 2019, Naomi Osaka became the first Asian pl
 
 ```{r, echo = FALSE, message = FALSE}
 # Loading packages
-library(dplyr)
+library(tidyverse)
 
 # Read in data and append match data
 wta_matches_2018 <- read.csv("../data/wta_matches_2018.csv", header=TRUE)
