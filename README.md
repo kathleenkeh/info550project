@@ -31,8 +31,10 @@ To pull the image from my DockerHub repository, you can run
 docker pull kathleenkeh/info550project
 ```
 
-Finally, to retrieve the final report from the image, you can replace /insert/your/local/path/here with your local path and then run
+Finally, to retrieve the final report from the image, you can mount your local directory to the directory in the container by running
 
 ```bash
-docker run -v /insert/your/local/path/here:/project/R kathleenkeh/info550project
+docker run -v /insert/your/local/path/here/:/project/ kathleenkeh/info550project
 ```
+
+Replace /insert/your/local/path/here/ with the local path to your clone of this repository (for example, /Users/kathleenkeh/Documents/info550project/) before running! The report will then be in the R subfolder (/insert/your/local/path/here/R). 
