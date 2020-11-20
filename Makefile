@@ -13,11 +13,12 @@ install: R/reportpackages.R
 clean:
 	rm R/report.html
 
-# Phony rule for help documentation
+## Phony rule for help documentation
 .PHONY: help
 help: Makefile
 	@sed -n 's/^##//p' $<
 
 ## build  : Builds docker image
+.PHONE: build
 build: Dockerfile
 	docker build -t kathleenkeh/info550project .
