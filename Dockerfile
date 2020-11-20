@@ -13,4 +13,4 @@ WORKDIR /project
 RUN chmod +x /project/R/*.R
 
 # make container entry point bash
-CMD make report.html
+CMD make -C project report.html
